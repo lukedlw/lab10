@@ -173,7 +173,10 @@ protected final class Tree
             //TODO
         }
         
-        return branchingFactor + nnaryTreeSize(branchingFactor, height-1);
+        
+        
+        
+        return branchingFactor + nnaryTreeSize(branchingFactor*branchingFactor, height-1);
         //TODO
     }
 
