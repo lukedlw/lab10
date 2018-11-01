@@ -1,20 +1,20 @@
-<%@ page import="java.util.ArrayList,java.io.*,java.util.*,java.sql.*,java.time.LocalDateTime,java.time.format.DateTimeFormatter" %>
+<%@ page
+	import="java.util.ArrayList,java.io.*,java.util.*,java.sql.*,java.time.LocalDateTime,java.time.format.DateTimeFormatter"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>CS 2334 - Lab9: Recursion</title>
 </head>
 <body style="BACKGROUND: url(images/bcgreeen1.GIF) repeat-x" height=938>
-<%!
-/**
- * Lab 9: Recursion Suite
- * 
- * This lab tests your ability to implement recursion for several functions.
- * 
- * @author Stephen
- * @version 2018-04-23
- * @Edited by Mukhtar to make compatible with JSP on 2018-10-20
- */
+	<%!/**
+     * Lab 9: Recursion Suite
+     * 
+     * This lab tests your ability to implement recursion for several functions.
+     * 
+     * @author Stephen
+     * @version 2018-04-23
+     * @Edited by Mukhtar to make compatible with JSP on 2018-10-20
+     */
 
 /**
    * Function to compute the value n! of some input value n.
@@ -34,7 +34,17 @@ public int factorial(int value)
        */
 
 	//TODO
-
+	if(value == 1)
+	{
+    	return value;
+	}
+	else
+	{
+	   
+	    
+	    return value*factorial(value-1);
+	    
+	}
 
       /*
        * Here is the recursive statement. The function calls itself when the base case is not met.
@@ -66,9 +76,17 @@ public int factorial(int value)
      */
 public int fibonacci(int n)
 {
+         if(n == 0)
+             return 0;
+         else if(n == 1)
+           return 1;
+        else
+           return fibonacci(n - 1) + fibonacci(n - 2);
 
 
 	//TODO
+	
+	
 
 
     
@@ -93,6 +111,7 @@ public int fibonacci(int n)
      * @author Stephen
      * @version 2018-04-23
      */
+}
 protected final class Tree
 {
     private ArrayList<Tree> children;
@@ -100,25 +119,31 @@ protected final class Tree
     
     public Tree(int value)
     {
+        
 	//TODO
+	this.children = new ArrayList<Tree>();
+	this.value = value;
     }
     
     public int getValue()
     {
+        return this.value;
 	//TODO
     }
     
     public ArrayList<Tree> getChildren()
     {
+        return children;
 	//TODO
     }
     
     public void add(Tree child)
     {
+        this.children.add(child);
 	//TODO
     }
 }
-    
+
     /**
      * In a binary tree, each node has two children. In a ternary tree, each node has 3 children.
      * Thus, in an n-nary tree, each node has n children. This function does not use the tree class
@@ -140,14 +165,17 @@ protected final class Tree
      * @param height The height of the subtree. When the height == 1, the subtree has no more children.
      * @return The size of the subtree - the number of nodes.
      */
-public int nnaryTreeSize(int branchingFactor, int height)
-{
-    if (height == 1) 
+    public int nnaryTreeSize(int branchingFactor, int height)
     {
-	//TODO
+        if (height == 1)
+        {
+            return 1;
+            //TODO
+        }
+        
+        return branchingFactor + nnaryTreeSize(branchingFactor, height-1);
+        //TODO
     }
-	//TODO
-}
 
     /**
      * This function uses the Tree data structure defined above. This simply sums up the all
@@ -157,11 +185,12 @@ public int nnaryTreeSize(int branchingFactor, int height)
      * @param tree The subtree to sum over.
      * @return The sum of the values in the subtree.
      */
-public int treeSum(Tree tree)
-{
-	//TODO
-}
-    
+    public int treeSum(Tree tree)
+    {
+        return 0;
+        //TODO
+    }
+
     /**
      * This function computes the area of a series of squares and circles. Specifically, we consider a series
      * of squares and circles in which each successive shape is inscribed in the other. This function sums
@@ -186,41 +215,41 @@ public int treeSum(Tree tree)
      * recursion is stopped.
      * @return The sum value of sequentially inscribed squares and circles.
      */
-public double circledSquared(boolean square, double length, int depth)
-{
-    /*
-     * Compute the area of the current shape. Remember that:
-     *  If the shape is a square, length refers to the square's width.
-     *  If the shape is a circle, length refers to the circle's raidus.
-     */
-    double area = 0;
-    if (square) 
+    public double circledSquared(boolean square, double length, int depth)
     {
-        area = length * length;
-    }
-    else 
-    {
-        area = Math.PI * length * length;
-    }
-    
-    /*
-     * Simply return the area on the base case:
-     */
-    if (depth == 1) 
-    {
-        return area;
-    }
-    
-    /*
-     * If the current shape is a square, the next is an inscribed circle.
-     * 
-     * We have a square of width <length>. Thus, the radius of the inscribed
-     * circle will be <length> / 2.
-     */
-    if (square) 
-    {
-        return area + circledSquared(!square, length/2, depth - 1);
-    }
+        /*
+         * Compute the area of the current shape. Remember that:
+         *  If the shape is a square, length refers to the square's width.
+         *  If the shape is a circle, length refers to the circle's raidus.
+         */
+        double area = 0;
+        if (square)
+        {
+            area = length * length;
+        }
+        else
+        {
+            area = Math.PI * length * length;
+        }
+
+        /*
+         * Simply return the area on the base case:
+         */
+        if (depth == 1)
+        {
+            return area;
+        }
+
+        /*
+         * If the current shape is a square, the next is an inscribed circle.
+         * 
+         * We have a square of width <length>. Thus, the radius of the inscribed
+         * circle will be <length> / 2.
+         */
+        if (square)
+        {
+            return area + circledSquared(!square, length / 2, depth - 1);
+        }
         /*
          * If the current shape is a circle, the next in an inscribed square.
          * 
@@ -236,68 +265,65 @@ public double circledSquared(boolean square, double length, int depth)
          *  => width = 2 * x = 2 * y / sqrt(2) = sqrt(2) * y
          *  => width = sqrt(2) * <length>
          */
-    else 
-    {
-    	return area + circledSquared(!square, length * Math.sqrt(2), depth - 1);
-	}
-}
-%>
-<center>
-<font size=5>
-	Recursion Testing System
-</font>
-</center>
-<%
-//Test recursion:
-out.println("<br />Value of 4! is: " + factorial(4));
-out.println("<br />Value of 10! is: " + factorial(10));
+        else
+        {
+            return area + circledSquared(!square, length * Math.sqrt(2), depth - 1);
+        }
+    }%>
+	<center>
+		<font size=5> Recursion Testing System </font>
+	</center>
+	<%
+	    //Test recursion:
+	    out.println("<br />Value of 4! is: " + factorial(4));
+	    out.println("<br />Value of 10! is: " + factorial(10));
 
-// Test fibonacci:
-out.println("<br /><br />Value of fib(5) is: " + fibonacci(5));
-out.println("<br />Value of fib(10) is: " + fibonacci(10));
+	    // Test fibonacci:
+	    out.println("<br /><br />Value of fib(5) is: " + fibonacci(5));
+	    out.println("<br />Value of fib(10) is: " + fibonacci(10));
 
-// Test nnary tree sizes:
-out.println("<br /><br />The size of width 2, height 5 binary tree is: " + nnaryTreeSize(2, 5));
-out.println("<br />The size of width 3, height 5 binary tree is: " + nnaryTreeSize(3, 5));
-out.println("<br />The size of width 2, height 10 binary tree is: " + nnaryTreeSize(2, 10));
-out.println("<br />The size of width 3, height 10 binary tree is: " + nnaryTreeSize(3, 10));
+	    // Test nnary tree sizes:
+	    out.println("<br /><br />The size of width 2, height 5 binary tree is: " + nnaryTreeSize(2, 5));
+	    out.println("<br />The size of width 3, height 5 binary tree is: " + nnaryTreeSize(3, 5));
+	    out.println("<br />The size of width 2, height 10 binary tree is: " + nnaryTreeSize(2, 10));
+	    out.println("<br />The size of width 3, height 10 binary tree is: " + nnaryTreeSize(3, 10));
 
-// Test tree summation:
-Tree root = new Tree(5);
+	    // Test tree summation:
+	    Tree root = new Tree(5);
 
-Tree child1 = new Tree(7);
-Tree child2 = new Tree(8);
+	    Tree child1 = new Tree(7);
+	    Tree child2 = new Tree(8);
 
-Tree child1_1 = new Tree(3);
-Tree child1_2 = new Tree(4);
+	    Tree child1_1 = new Tree(3);
+	    Tree child1_2 = new Tree(4);
 
-Tree child2_1 = new Tree(50);
+	    Tree child2_1 = new Tree(50);
 
-root.add(child1);
-root.add(child2);
+	    root.add(child1);
+	    root.add(child2);
 
-child1.add(child1_1);
-child1.add(child1_2);
+	    child1.add(child1_1);
+	    child1.add(child1_2);
 
-child2.add(child2_1);
+	    child2.add(child2_1);
 
-// Print results:
-out.println("<br /><br />Full tree sum is: " + treeSum(root));
-out.println("<br />Child1 tree sum is: " + treeSum(child1));
-out.println("<br />Child2 tree sum is: " + treeSum(child2));
-out.println("<br />Child1_1 tree sum is: " + treeSum(child1_1));
-out.println("<br />Child1_2 tree sum is: " + treeSum(child1_2));
-out.println("<br />Child2_1 tree sum is: " + treeSum(child2_1));
+	    // Print results:
+	    out.println("<br /><br />Full tree sum is: " + treeSum(root));
+	    out.println("<br />Child1 tree sum is: " + treeSum(child1));
+	    out.println("<br />Child2 tree sum is: " + treeSum(child2));
+	    out.println("<br />Child1_1 tree sum is: " + treeSum(child1_1));
+	    out.println("<br />Child1_2 tree sum is: " + treeSum(child1_2));
+	    out.println("<br />Child2_1 tree sum is: " + treeSum(child2_1));
 
-// Test circling and squaring:
-out.println("<br /><br />Area of a single square size 10: " + circledSquared(true, 10, 1));
-out.println("<br />Area of a single circle size 5: " + circledSquared(false, 5, 1));
+	    // Test circling and squaring:
+	    out.println("<br /><br />Area of a single square size 10: " + circledSquared(true, 10, 1));
+	    out.println("<br />Area of a single circle size 5: " + circledSquared(false, 5, 1));
 
-out.println("<br /><br />Area of a square inscribing circle, size 10: " + circledSquared(true, 10, 2));
-out.println("<br />Area of a circle inscribing square, size 10: " + circledSquared(false, 10, 2));
+	    out.println("<br /><br />Area of a square inscribing circle, size 10: " + circledSquared(true, 10, 2));
+	    out.println("<br />Area of a circle inscribing square, size 10: " + circledSquared(false, 10, 2));
 
-out.println("<br /><br />Area of several sucessive squares and circles, size 100:" +
-	circledSquared(true, 100, 5));
-%>
+	    out.println("<br /><br />Area of several sucessive squares and circles, size 100:"
+	            + circledSquared(true, 100, 5));
+	%>
 </body>
 </html>
