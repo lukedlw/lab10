@@ -176,7 +176,7 @@ protected final class Tree
         
         
         
-        return branchingFactor + nnaryTreeSize(branchingFactor*branchingFactor, height-1);
+        return 1 + branchingFactor*nnaryTreeSize(branchingFactor, height-1);
         //TODO
     }
 
@@ -190,7 +190,15 @@ protected final class Tree
      */
     public int treeSum(Tree tree)
     {
-        return 0;
+        int sum = tree.getValue();
+        
+        
+        for (Tree e : tree.getChildren())
+        {
+            sum += treeSum(e);
+            
+        }
+        return sum;
         //TODO
     }
 
